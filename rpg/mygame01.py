@@ -35,24 +35,29 @@ inventory = []
 #a dict linking a room to ther rooms
 rooms = {
             'Hall' : {
-                'south' : 'Kitchen',
-                'east' : 'Dining',
-                'item' : 'skel_key'
+                'north': 'Store Room',
+                'south': 'Kitchen',
+                'east': 'Dining',
+                'item': 'skel_key'
+                },
+            'Store Room': {
+                'south': 'Hall',
+                'item': 'cookie'
                 },
 
             'Kitchen' : {
-                'north' : 'Hall',
-                'item' : 'monster'
+                'north': 'Hall',
+                'item': 'monster'
                 },
             
             'Dining' : {
-                'west' : 'Hall',
-                'item' : 'potion',
-                'south' : 'Garden'
+                'west': 'Hall',
+                'item': 'potion',
+                'south': 'Garden'
                 },
 
             'Garden' : {
-                'north' : 'Dining'
+                'north': 'Dining'
                 }
             }
 
@@ -86,6 +91,7 @@ while True:
     #if they type 'get' first
     if move[0] == 'get' :
         #if the room contains an item, and the item is the one they want to get
+        #need to check that key is in dict, if not will throw keyerror
         if "item" in rooms[currentRoom] and move[1] in rooms[currentRoom]['item']:
             #add the item to their inv
             inventory += [move[1]]
@@ -97,11 +103,18 @@ while True:
         else:
             #tell them they cant get it
             print('Can\'t get ' + move[1] + '!')
+
+    # if play finds monster and has a cookie
+    if 'item' in rooms[currentRoom] and 'monster' in rooms[currentRoom]['item'] and 'cookie' in inventory:
+        print('The Monster stole your cookie and ran away')
+        del rooms[currentRoom]['item']
+        inventory.remove('cookie')
+
     # if a player enters a room with a monster
     if 'item' in rooms[currentRoom] and 'monster' in rooms[currentRoom]['item']:
         print('A Monster has got you....GAME OVER!')
         break
-
+    
     # define how a player can win
     if currentRoom == 'Garden' and 'skel_key' in inventory and 'potion' in inventory:
         print('You escaped the house wit the ultra rare key and magic potion... You WIN!!!')
