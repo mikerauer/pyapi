@@ -19,6 +19,14 @@ def hello_world():
 def mike():
     return "Hello Mike\n"
 
+@app.route('/hello/<name>')
+# <name> is passed to (name) in the func
+def hello_name(name):
+    #using .format
+    #return "Hello {}".format(name)
+    #using f string
+    return f'hello {name}\n'
+
 if __name__ == "__main__":
    app.run(port=5006) # runs the application
    # app.run(port=5006, debug=True) # DEBUG MODE

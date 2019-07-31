@@ -22,18 +22,23 @@ def apicall(booknum):
 def main():
     # prints ISBN number to screen
     while True:
-            try:
-                # book number
-                book = whichbook()
-                # api call
-                thrones = apicall(book)
-                # prints ISBN
-                print(thrones['isbn'])
-                # asks user if they want to continue
-                x = input('Would you like to check another? y/n ')
-                if x.lower() == 'n':
-                    break
-            except:
+        try:
+            # book number
+            book = whichbook()
+            # api call
+            thrones = apicall(book)
+            # prints ISBN
+            print(thrones['isbn'])
+            # asks user if they want to continue
+            x = input('Would you like to check another? y/n ')
+            # check if you said n and breaks
+            if x.lower() == 'n':
+                break
+        except KeyboardInterrupt:
+            # all specific errors need to be above the catch all
+            # allows ctrl-c to get out at any point
+            break
+        except:
                 # response if book number wasnt in the list
                 print('Book number not in the list')
 
