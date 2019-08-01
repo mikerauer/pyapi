@@ -1,7 +1,15 @@
 #!/usr/bin/python3
 
 from flask import Flask, render_template
+import requests
+
 app = Flask(__name__)
+
+@app.route("/astros")
+def astros():
+    mydata = requests.get('http://api.open-notify.org/astros.json')
+    isspeople = mydata.json()
+    return render_template("myastros.html", people=isspeople['people'])
 
 @app.route("/scoretest/<int:score>")
 def passfail(score):

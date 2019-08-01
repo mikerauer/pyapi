@@ -1,0 +1,14 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>Space People</title>
+</head>
+<body>
+    <ul id="Astronauts in space">
+    {% for item in people %}
+        <li>{{ item.name }} is riding on {{ item.craft }}</a></li>
+    {% endfor %}
+    </ul>
+
+</body>
+</html>
